@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egg Boiling Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="simulator-container">
+        <h1>Egg Boiling Simulator</h1>
+        
+        <div class="controls">
+            <div class="button-group">
+                <h3>Egg Type:</h3>
+                <button id="soft" class="egg-type selected">Soft-Boiled (6 min)</button>
+                <button id="medium" class="egg-type">Medium-Boiled (9 min)</button>
+                <button id="hard" class="egg-type">Hard-Boiled (12 min)</button>
+                <button id="overcooked" class="egg-type">Over-Cooked (15 min)</button>
+            </div>
+            
+            <div class="button-group">
+                <h3>Temperature Unit:</h3>
+                <button id="celsius" class="temp-unit selected">Celsius (°C)</button>
+                <button id="fahrenheit" class="temp-unit">Fahrenheit (°F)</button>
+                <div>
+                    <button id="start" class="start">Start Boiling</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="displays">
+            <div class="display-panel">
+                <h3>Time</h3>
+                <div id="time-display">00:00</div>
+            </div>
+            <div class="display-panel">
+                <h3>Temperature</h3>
+                <div id="temp-display">20°C</div>
+            </div>
+            <div class="display-panel">
+                <h3>Status</h3>
+                <div id="status-display">Ready</div>
+            </div>
+        </div>
+        
+        <div class="simulation">
+            <div class="stove"></div>
+            <div class="pot">
+                <div class="water">
+                    <div class="egg"></div>
+                </div>
+                <div class="vapor-container" id="vapor-container"></div>
+            </div>
+            <div class="fire" id="fire">
+                <div class="flame"></div>
+                <div class="flame"></div>
+                <div class="flame"></div>
+            </div>
+        </div>
+        
+        <div id="notification">Your egg is done cooking!</div>
+    </div>
+    
+    <audio id="beep-sound" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YWoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBi5y0/LDciUFEUqk6/LQdBwAAB1axvDmxG8fBA0zd9/14LVfGwYoXsn/8chuFgIURKf///HGcw8ACDV85v7nzHMMBRE6f+v/69OPC/8HH27s//7fjwYABTPh//7swl8EABL2//riot2ZLwkh0f/95bWmeUgZA33p/+w8BgDCSTsQAKP46///////9t3QvLGsnp2Wl5ycnaGkp62vsbW2uLm6u7q7u7q7u7y9v8HCxMTFxsbFxcTDwsHAvby6ura0sKyopKCbl5OOiYR/enVwbGhlYV1bWFZVU1NTUFBQT05OTk9PUVFTVFVXWFpcXmBjZmhrbW5wcnN0dXZ2d3d2+//90J2ThXVpYWJvho6QhGlRR1Nmm8Dd6+ziz7addVJKTWOLqrOsnYp2ZFtdaoCissPHw7Wjkn9ydHmGlKCqrq6rpp+Wj4uIh4mLkJScpKqvtLi8v8HDxMXGxsfHx8fIyMjJycnKysrLy8zMzMzMzc3Nzc3Ozs7Ozs7Pz8/Pz8/Pz8/Pz8/Pzs7Ozs7Ozs7Ozs7Ozs7Nzc3Nzc3Nzc3MzMzMzMzMzMzMy8vLy8vLy8vLy8vLy8vKysrKysrKysrKysrKycnJycnJycjIyMjIyMjIyMjIyMjIx8fHx8fHx8bGxsbGxsbGxsXFxcXFxcXExMTExMTDw8PDw8PCwsLCwsLBwcHBwcHBwcHAwMDAwMDAwL+/v7+/v7+/v7+/v7+/vr6+vr6+vr6+vr69vb29vb29vb29vb29vb29vb29vby8vLy8vLy8vLy8vLu7u7u7u7u7u7u7u7u6urq6urq6urq6urq6urm5ubm5ubm5ubm5ubm4uLi4uLi4uLi4uLi4uLi4t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7a2tra2tra2tra2tra2tra2tra2tra2tramcHW6y9vY0Ma3moVvV0U1MEEzWnm24/b+/fHhzrqkjnFeTS41VGSDobCxrKWaj4R3alpZWWNuk6Sutbm4sq+knpl9W01JQjc8VmyXvdXr9/758trEr5aAa11WSz5BQkVYbo7o//fgycS4mIh4bWpiVldNSVhtfJG6vNji3NDErqSYgGBOSDw0OkJR3v/zx56BZFVGQ09qir3y///y28zBtauikHBRRj4xMzg3LCMwUXK1xL6ukXphUEtWapjJ7fn//fbo3dLGupyIcVtGPTAvL0ZieKjq//zs49zSSz9ciLbY9f///v79/fz8+/v6+fj39vX19PPy8fDv7u3s6+vq6eno6Ofn5ubicnN3gIaKkJWZnJ2bmJWOiLmqvaX//+bNwLumm5ORkoyGf3hya2VfWlZSUE9NTk1sbnN7gpCer8HO1+Pr7e3p4trTy8O7s62oo56al5SRkI+QkZKUlpmbnZ+ipaissLO3uby/wsTHysvNz9DR0tTV1dbX2Nna29zd3d7e39/g4OHh4uLj4+Tk5eXm5ufn6Ojp6erq6+vs7O3t7u7v7/Dw8fHy8vPz9PT19fb29/f4+Pn5+vr7+/z8/f3+/v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" preload="auto"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
